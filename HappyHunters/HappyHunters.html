@@ -1,14 +1,15 @@
 <head>
-  <title>Todo List</title>
+  <title>Happy Hunters</title>
+  <link href='https://fonts.googleapis.com/css?family=Archivo+Black' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 	<div class="container">
 		<header>
-  			<h1>My Todo List: ({{incompleteCount}})</h1>
+  			<h1>My Hunt: ({{incompleteCount}})</h1>
   			<label class="hide-completed">
   				<input type="checkbox" checked="{{hideCompleted}}" />
-  				Hide Completed Tasks 
+  				Hide Completed Tasks
   			</label>
   			{{> loginButtons}}
   			{{#if currentUser}}
@@ -38,7 +39,7 @@
     {{#if isOwner}}
       <button class="toggle-private">
         {{#if private}}
-          Private    
+          Private
         {{else}}
           Public
         {{/if}}
