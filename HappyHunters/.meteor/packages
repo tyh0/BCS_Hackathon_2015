@@ -17,12 +17,7 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 insecure                # Allow all DB writes from clients (for prototyping)
-<<<<<<< HEAD
 accounts-password
 accounts-ui
 less
 nemo64:bootstrap
-=======
-accounts-ui
-accounts-password
->>>>>>> b017d4377d3af8fcac1af58e7110b04a11dd1dcc
