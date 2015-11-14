@@ -6,24 +6,38 @@
 <body>
 	<div class="container">
 		<header>
-  			<h1>My Hunt: ({{incompleteCount}})</h1>
-  			<label class="hide-completed">
-  				<input type="checkbox" checked="{{hideCompleted}}" />
-  				Hide Completed Tasks
-  			</label>
-  			{{> loginButtons}}
-  			{{#if currentUser}}
-  				<form class="new-task">
-  					<input type="text" name="text" placeholder="Type to add new tasks"/>
-  				</form>
-  			{{/if}}
-		</header>
-		<ul>
+            <h1>Happy Hunters</h1>
+            </header>
+<!--        <center>{{> loginButtons}}</center>-->
+  	  			{{#if currentUser}}
+                <p>You're logged in!</p>
+                <p><a href="#" class="logout">Logout</a></p>
+                <label class="hide-completed">
+                <input type="checkbox" checked="{{hideCompleted}}" />
+                Hide Completed Tasks
+  		        </label>
+                <form class="new-task">
+                <input type="text" name="text" placeholder="Type to add new tasks"/>
+                </form>
+                <ul>
+                    {{#each tasks}}
+                        {{> task}}
+                    {{/each}}
+                </ul>
+            {{else}}
+                <center>
+                    <div>{{> login}}</div>
+<!--                </center>-->
+                    <div><p>or</p></div>
+                    <div><button class="register">Register</button></div>
+                     {{#if clickedRegister}}
+                        <div>{{> register}}</div>
+                     {{else}}
+                     {{/if}}
+                </center>
 
-  			{{#each tasks}}
-  				{{> task}}
-  			{{/each}}
-		</ul>
+  			{{/if}}
+
 	</div>
 </body>
 
@@ -48,4 +62,23 @@
 
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
+</template>
+
+<template name="register">
+    <form>
+        <p>Enter registration information below:</p>
+        <div>Email:<input type="email" name="registerEmail"></div>
+        <div>Password:<input type="password" name="registerPassword"></div>
+        <input type="submit" class="submitRegister" value="Submit">
+    </form>
+</template>
+
+<template name="login">
+    <form>
+        <p>Log in below to start your hunt!</p>
+        <div>Email:<input type="email" name="loginEmail"></div>
+        <div>Password:<input type="password" name="loginPassword"></div>
+        <input type="submit" class="submitLogin" value="Login">
+
+    </form>
 </template>

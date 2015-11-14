@@ -4,6 +4,7 @@ if (Meteor.isClient) {
   Meteor.subscribe("tasks");
   // counter starts at 0
   Session.setDefault('counter', 0);
+  Session.setDefault('setRegister',false);
 
   Template.body.helpers({
   tasks: function () {
@@ -20,19 +21,16 @@ if (Meteor.isClient) {
   },
   incompleteCount: function () {
   return Tasks.find({checked: {$ne: true}}).count();
-}
+  },
+      "clickedRegister": function() {
+            return Session.get("setRegister");
+            console.log(Session.get("setRegister"));
+        }
 });
 
   Template.body.events({
     "submit .new-task": function (event) {
       var text = event.target.text.value;
-
-      // Tasks.insert({
-      //   text: text,
-      //   createdAt: new Date(), //current time
-      //   owner: Meteor.userId(),
-      //   username: Meteor.user().username
-      // });
       Meteor.call("addTask", text);
 
       //Clear form
@@ -44,7 +42,19 @@ if (Meteor.isClient) {
 
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
+    },
+      
+    "click .register": function(event) {
+            return Session.set("setRegister",true);
+            console.log("clicked register");
+//            Session.set("setRegister",false);
+    },
+    "click .logout": function(event){
+        event.preventDefault();
+        Session.set("setRegister",false);
+        Meteor.logout();
     }
+      
   });
 
   Template.task.helpers({
@@ -75,6 +85,39 @@ if (Meteor.isClient) {
       Meteor.call("deleteTask", this._id);
     }
   });
+    
+    Template.register.helpers({
+//        "clickedRegister": function() {
+//            Session.get("setRegister");
+//            console.log("setregister");
+//        }
+    });
+    
+    Template.register.events({
+        "submit form": function(event) {
+            event.preventDefault();
+            var emailVar = event.target.registerEmail.value;
+            var passwordVar = event.target.registerPassword.value;
+            console.log("Form submitted.");
+            
+            Accounts.createUser({
+            // options go here
+                email: emailVar,
+                password: passwordVar
+            });
+        }
+    });
+    
+    Template.login.events({
+    'submit form': function(event) {
+        event.preventDefault();
+        var emailVar = event.target.loginEmail.value;
+        var passwordVar = event.target.loginPassword.value;
+        
+        Meteor.loginWithPassword(emailVar, passwordVar);
+    }
+});
+
 
   Accounts.ui.config({
   passwordSignupFields: "USERNAME_ONLY"
