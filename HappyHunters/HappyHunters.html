@@ -8,26 +8,30 @@
 		<header>
             <h1>Happy Hunters</h1>
             </header>
+            <br>
+            <br>
 <!--        <center>{{> loginButtons}}</center>-->
   	  			{{#if currentUser}}
                 <p>You're logged in!</p>
                 <p><a href="#" class="logout">Logout</a></p>
                 <label class="hide-completed">
                 <input type="checkbox" checked="{{hideCompleted}}" />
-                Hide Completed Tasks
+                Hide Found Items
   		        </label>
                 <form class="new-task">
-                <input type="text" name="text" placeholder="Type to add new tasks"/>
+                <input type="text" name="text" placeholder="Type to add a new scavenger hunt item"/>
                 </form>
                 <ul>
                     {{#each tasks}}
                         {{> task}}
+                        {{>imageView}}
                     {{/each}}
                 </ul>
             {{else}}
                 <center>
                     <div>{{> login}}</div>
 <!--                </center>-->
+                    <p></p>
                     <div><p>or</p></div>
                     <div><button class="register">Register</button></div>
                      {{#if clickedRegister}}
@@ -37,15 +41,17 @@
                 </center>
 
   			{{/if}}
-
 	</div>
+
 </body>
 
 <template name="task">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
-    <button class="upload">Upload Image</button>
-    {{#if isOwner}}
+    <div class="upload">
+      {{> myForm}}
+    </div>
+    <!-- {{#if isOwner}}
       <button class="toggle-private">
         {{#if private}}
           Private
@@ -53,7 +59,7 @@
           Public
         {{/if}}
       </button>
-    {{/if}}
+    {{/if}} -->
 
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
@@ -72,8 +78,23 @@
     <form>
         <p>Log in below to start your hunt!</p>
         <div>Email: <input type="email" name="loginEmail"></div><br>
-        <div>Password: <input type="password" name="loginPassword"></div>
+        <div>Password: <input type="password" name="loginPassword"></div><br>
         <input type="submit" class="submitLogin" value="Login">
-
     </form>
+</template>
+
+<template name="imageView">
+  <div class="imageView" background-color="white" height='100px'>
+    {{#each images}}
+      <div>
+        <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing=this.url}}" alt="" class="thumbnail" width="50px"/></a>
+      </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="myForm">
+  <div class="imageInput">
+    <input type="file" name="uploadedImage" />
+  </div>
 </template>

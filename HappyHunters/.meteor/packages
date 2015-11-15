@@ -21,3 +21,5 @@ accounts-password
 accounts-ui
 less
 nemo64:bootstrap
+cfs:standard-packages
+cfs:filesystem
