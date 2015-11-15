@@ -41,15 +41,10 @@
 	</div>
 </body>
 
-<!--<template name="task">
-  <li>{{text}}</li>
-</template>-->
-
 <template name="task">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
-
-
+    <button class="upload">Upload Image</button>
     {{#if isOwner}}
       <button class="toggle-private">
         {{#if private}}

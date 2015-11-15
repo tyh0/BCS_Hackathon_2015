@@ -105,6 +105,8 @@ if (Meteor.isClient) {
                 email: emailVar,
                 password: passwordVar
             });
+            
+        
         }
     });
     
@@ -115,6 +117,8 @@ if (Meteor.isClient) {
         var passwordVar = event.target.loginPassword.value;
         
         Meteor.loginWithPassword(emailVar, passwordVar);
+        Meteor.user().username = emailVar;
+        
     }
 });
 
@@ -136,7 +140,9 @@ Meteor.methods({
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username
+        
     });
+      console.log(Accounts.username);
   },
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
